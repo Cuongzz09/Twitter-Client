@@ -2,5 +2,8 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="yellow">#FFEB3B</color>
+    <color name="blue">#03A9F4</color>
+    <color name="tab_selected_icon_color">#FFFFFF</color> <!-- White color for selected tab -->
+    <color name="tab_unselected_icon_color">#FFFFFFFF</color> <!-- Grey color for unselected tabs -->
+
 </resources>

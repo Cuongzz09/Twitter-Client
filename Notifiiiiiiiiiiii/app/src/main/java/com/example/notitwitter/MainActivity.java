@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
-
 import com.example.notitwitter.fragment.CommunityFragment;
 import com.example.notitwitter.fragment.HomeFragment;
 import com.example.notitwitter.fragment.MailFragment;
@@ -16,6 +15,8 @@ import com.example.notitwitter.fragment.SearchFragment;
 import com.example.notitwitter.fragment.SlashFragment;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import android.graphics.PorterDuff;
+import androidx.core.content.ContextCompat;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -58,11 +59,30 @@ public class MainActivity extends AppCompatActivity {
                                 tab.setIcon(R.drawable.mail);
                                 break;
                         }
+                        // Set the color filter for the icons
+                        tab.view.setOnClickListener(v -> {
+                            for (int i = 0; i < tabLayout.getTabCount(); i++) {
+                                TabLayout.Tab t = tabLayout.getTabAt(i);
+                                if (t != null && t.getIcon() != null) {
+                                    if (t == tab) {
+                                        t.getIcon().setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.tab_selected_icon_color), PorterDuff.Mode.SRC_IN);
+                                    } else {
+                                        t.getIcon().setColorFilter(ContextCompat.getColor(MainActivity.this, R.color.tab_unselected_icon_color), PorterDuff.Mode.SRC_IN);
+                                    }
+                                }
+                            }
+                        });
                     }
                 }).attach();
 
-        // Set the initial tab selection
-        tabLayout.getTabAt(0).select();
+        // Set the initial tab selection and color
+        TabLayout.Tab initialTab = tabLayout.getTabAt(0);
+        if (initialTab != null) {
+            initialTab.select();
+            if (initialTab.getIcon() != null) {
+                initialTab.getIcon().setColorFilter(ContextCompat.getColor(this, R.color.tab_selected_icon_color), PorterDuff.Mode.SRC_IN);
+            }
+        }
     }
 
     private static class SectionsPagerAdapter extends FragmentStateAdapter {
