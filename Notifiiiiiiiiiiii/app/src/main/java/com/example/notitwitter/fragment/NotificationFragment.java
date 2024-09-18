@@ -5,14 +5,17 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.notitwitter.R;
 import com.example.notitwitter.notifiiiii.NotificationViewPagerAdapter;
+import com.example.notitwitter.notifiiiii.SettingsFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
@@ -110,6 +113,20 @@ public class NotificationFragment extends Fragment {
                     return true;
                 }
                 return false;
+            }
+        });
+
+        // Initialize settings button
+        ImageButton btnSettings = mView.findViewById(R.id.setting_button);
+        btnSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Chuyển đến SettingFragment
+                Fragment settingFragment = new SettingsFragment();
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragment_container, settingFragment); // Thay đổi ID theo layout của bạn
+                transaction.addToBackStack(null); // Thêm vào back stack
+                transaction.commit();
             }
         });
 
